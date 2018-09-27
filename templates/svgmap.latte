@@ -1,0 +1,23 @@
+<script n:if="$render" src="{$raphael}" type='text/javascript'></script>
+<script n:if="$render" src="{$js}" type='text/javascript'></script>
+<style>.map_tooltip {
+    {foreach $styles as $key => $value}
+        {$key|noescape}:{$value|noescape};
+    {/foreach}
+}
+</style>
+<div id="{$id}" data-map="{$image}" data-regions="{$data}" ></div>
+<script type='text/javascript'>
+var id = '#' + {$id};
+$(id).mapSvg({
+    colors: JSON.parse({$colors}),
+    cursor: 'pointer',
+    height: '{$height|noescape}px',
+    loadingText: '',
+    multiSelect: false,
+    source: {$image},
+    responsive: true,
+    tooltipsMode: 'custom',
+    width: '{$width|noescape}px'
+})
+</script>

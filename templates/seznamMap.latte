@@ -1,0 +1,45 @@
+<script n:if="$render" src="https://api.mapy.cz/loader.js"></script>
+<script n:if="$render" src="{$js}"></script>
+<script n:if="$render">Loader.load()</script>
+<div center="{$center}" id="{$id}" style="height:{$height}px;width:auto;"></div>
+<script n:if="$render" type='text/javascript'>
+function append(markers) {
+    for(var key in markers) {
+        var option = markers[key]
+        var point = SMap.Coords.fromWGS84(option.lng, option.lat)
+        var pin = JAK.mel('div')
+        pin.appendChild(JAK.mel('img', { src:{$icon} }))
+        var marker = new SMap.Marker(point, option.name, { title:option.name,url:pin})
+        var card = new SMap.Card()
+        card.getHeader().innerHTML = option.header
+        card.getBody().innerHTML = option.html
+        marker.decorate(SMap.Marker.Feature.Card, card)
+        layer.addMarker(marker)
+    }
+}
+function vector(angle, coordinates) {
+    var zoom = map.getZoom()
+    length = zoom / 10;
+    angle = angle * Math.PI / 180;
+    return { x:length * Math.cos(angle) + coordinates.x,y:length * Math.sin(angle) + coordinates.y}
+}
+</script>
+<script n:if="$hide">$('#' + {$id}).data('resized', true).animate({ height:'0px',width:'0%'}, 500)</script>
+<script>
+var center = JSON.parse({$center})
+facilities = []
+map = new SMap(JAK.gel({$id}), SMap.Coords.fromWGS84(center.longitude, center.latitude), center.zoom)
+map.addDefaultLayer(SMap.DEF_BASE).enable()
+map.addDefaultControls()
+layer = new SMap.Layer.Marker()
+map.addLayer(layer)
+layer.enable()
+map.getSignals().addListener(window, 'map-redraw', function(event) {
+    var coordinates = SMap.Coords.fromEvent(event, map)
+    var nw = vector(135, coordinates)
+    var se = vector(-45, coordinates)
+    $.post({$link}, { maxLatitude:nw.y, maxLongitude:se.x, minLatitude:se.y, minLongitude:nw.x}, 
+        function(markers) { append(markers)
+    });
+})
+</script>

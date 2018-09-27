@@ -1,0 +1,37 @@
+{
+  "name": "galileo",
+  "version": "0.9.0",
+  "dependencies": {
+    "react": "^15.6.2",
+    "webpack-dev-server": "^2.11.2",
+    "webpack-manifest-plugin": "^1.3.2",
+    "webpack-md5-hash": "0.0.5"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-jest": "^20.0.3",
+    "babel-preset-react": "^6.24.1",
+    "jest": "^20.0.4",
+    "webpack": "^2.7.0",
+    "webpack-merge": "^4.1.2"
+  },
+  "jest": {
+    "automock": false,
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules"
+    ],
+    "unmockedModulePathPatterns": [
+      "<rootDir>/node_modules/react/",
+      "<rootDir>/node_modules/react-dom/"
+    ],
+    "testRegex": "(/app/Masala/__tests__/.*|\\.(test|spec))\\.(js|jsx)$"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}
