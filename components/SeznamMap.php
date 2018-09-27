@@ -65,10 +65,10 @@ final class SeznamMap extends Control implements ISeznamMapFactory {
         self::$render = false;
     }
 
-    public function renderCorner(): void {
+    public function renderShow(): void {
         $this->template->close = $this->seznam->close();
         $this->template->open = $this->seznam->open();
-        $this->template->setFile(__DIR__ . '/../templates/corner.latte');
+        $this->template->setFile(__DIR__ . '/../templates/show.latte');
         $this->template->setTranslator($this->translatorRepository);
         $this->template->render();
     }
