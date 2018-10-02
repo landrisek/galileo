@@ -1224,7 +1224,6 @@
                         if (x && x.overrideMimeType) {
                             x.overrideMimeType("image/svg+xml; charset=utf-8");
                         }
-                        $('#ajax-spinner-bg').aAjaxSpinner('preventBlackoutOnce');
                     },
                     success: function(xmlData) {
                         $data = $(xmlData);
