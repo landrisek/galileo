@@ -1,21 +1,35 @@
+<style>.smap .cluster div {
+    {foreach $styles as $key => $value}
+        {$key|noescape}:{$value|noescape};
+    {/foreach}
+}
+.smap .cluster img {
+    display: none;
+}
+</style>
 <script n:if="$render" src="https://api.mapy.cz/loader.js"></script>
 <script n:if="$render" src="{$js}"></script>
 <script n:if="$render">Loader.load()</script>
 <div center="{$center}" id="{$id}" style="height:{$height}px;width:auto;"></div>
 <script n:if="$render" type='text/javascript'>
 function append(markers) {
+    var cluster = []
     for(var key in markers) {
-        var option = markers[key]
-        var point = SMap.Coords.fromWGS84(option.lng, option.lat)
-        var pin = JAK.mel('div')
-        pin.appendChild(JAK.mel('img', { src:{$icon} }))
-        var marker = new SMap.Marker(point, option.name, { title:option.name,url:pin})
-        var card = new SMap.Card()
-        card.getHeader().innerHTML = option.header
-        card.getBody().innerHTML = option.html
-        marker.decorate(SMap.Marker.Feature.Card, card)
-        layer.addMarker(marker)
+        if(undefined == facilities[key]) {
+            var option = markers[key]
+            var point = SMap.Coords.fromWGS84(option.lng, option.lat)
+            var pin = JAK.mel('div')
+            pin.appendChild(JAK.mel('img', { src:{$icon} }))
+            var marker = new SMap.Marker(point, option.name, { title:option.name,url:pin})
+            var card = new SMap.Card()
+            card.getHeader().innerHTML = option.header
+            card.getBody().innerHTML = option.html
+            marker.decorate(SMap.Marker.Feature.Card, card)
+            cluster.push(marker)
+            facilities[key] = true
+        }
     }
+    layer.addMarker(cluster)
 }
 function vector(angle, coordinates) {
     var zoom = map.getZoom()
@@ -29,9 +43,11 @@ function vector(angle, coordinates) {
 var center = JSON.parse({$center})
 facilities = []
 map = new SMap(JAK.gel({$id}), SMap.Coords.fromWGS84(center.longitude, center.latitude), center.zoom)
-map.addDefaultLayer(SMap.DEF_BASE).enable()
+map.addDefaultLayer({$map|noescape}).enable()
 map.addDefaultControls()
 layer = new SMap.Layer.Marker()
+var clusterer = new SMap.Marker.Clusterer(map);
+layer.setClusterer(clusterer);
 map.addLayer(layer)
 layer.enable()
 map.getSignals().addListener(window, 'map-redraw', function(event) {

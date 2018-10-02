@@ -9,11 +9,15 @@ interface ISeznam {
 
     public function close(): array;
 
+    public function cluster(): array;
+
     public function height(): int;
 
     public function icon(): string;
 
     public function markers(): array;
+
+    public function map(): string;
 
     public function open(): array;
 

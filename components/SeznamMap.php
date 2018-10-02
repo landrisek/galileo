@@ -59,7 +59,9 @@ final class SeznamMap extends Control implements ISeznamMapFactory {
         $this->template->id = 'mapa';
         $this->template->js = $this->assets . 'js/seznammap.js';
         $this->template->link = $this->link('markers');
+        $this->template->map = $this->seznam->map();
         $this->template->render = self::$render;
+        $this->template->styles = $this->seznam->cluster();
         $this->template->setFile(__DIR__ . '/../templates/seznamMap.latte');
         $this->template->render();
         self::$render = false;

@@ -41,12 +41,28 @@ final class SeznamService implements ISeznam {
                 'text-decoration' => 'none;'];
     }
 
+    public function cluster(): array {
+        return ['background' => 'url("../assets/images/myCluster.png") 0px 0px no-repeat;',
+                'border' => 'none;',
+                'border-radius' => '0%;',
+                'color' => '#1b8a26;',
+                'display' => 'block;',
+                'height' => '19px;',
+                'overflow' => 'hidden;',
+                'height' => '30px;',
+                'width' => '110px;'];
+    }
+
     public function height(): int {
         return 400;
     }
 
     public function icon(): string {
         return '/images/icon.png';
+    }
+
+    public function map(): string {
+        return SeznamVO::TURISTIC;
     }
 
     public function markers(): array {
