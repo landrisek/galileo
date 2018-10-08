@@ -45,8 +45,8 @@ final class SeznamMap extends Control implements ISeznamMapFactory {
         $this->getPresenter()->sendResponse(new JsonResponse($this->seznam->markers()));
     }
 
-    public function hide(): ISeznamMapFactory {
-        $this->hide = true;
+    public function hide(bool $clause): ISeznamMapFactory {
+        $this->hide = $clause;
         return $this;
     }
 
