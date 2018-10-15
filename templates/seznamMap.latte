@@ -50,6 +50,7 @@ var clusterer = new SMap.Marker.Clusterer(map);
 layer.setClusterer(clusterer);
 map.addLayer(layer)
 layer.enable()
+append(JSON.parse({$markers}))
 map.getSignals().addListener(window, 'map-redraw', function(event) {
     var coordinates = SMap.Coords.fromEvent(event, map)
     var nw = vector(135, coordinates)
