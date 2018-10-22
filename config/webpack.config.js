@@ -9,7 +9,7 @@ var BUILD_DIR = path.resolve(__dirname, ASSETS_DIR);
 var APP_DIR = path.resolve(__dirname, 'app/Galileo/react');
 
 module.exports = {
-    entry: {  ContentForm: APP_DIR + '/SvgMap.jsx'
+    entry: {  SvgMap: APP_DIR + '/SvgMap.jsx'
     },
     devServer: {
         proxy: {

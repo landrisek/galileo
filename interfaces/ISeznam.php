@@ -15,12 +15,12 @@ interface ISeznam {
 
     public function icon(): string;
 
+    public function id(string $id): ISeznam;
+
     public function markers(): array;
 
     public function map(): string;
 
     public function open(): array;
-
-    public function setComponent(string $component): ISeznam;
 
 }

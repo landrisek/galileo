@@ -1,14 +1,2 @@
-<style>
-.seznam-map-close {
-    {foreach $close as $key => $value}
-        {$key|noescape}:{$value|noescape};
-    {/foreach}
-}
-.seznam-map-open {
-    {foreach $open as $key => $value}
-        {$key|noescape}:{$value|noescape};
-    {/foreach}
-}
-</style>
-<a class='seznam-map-open' href='javascript:;' onClick='openMap()'></a>
-<a class='seznam-map-close' href='javascript:;' onClick='closeMap()'>{_'Hide map'}</a>
+<a id="{$id}-open" href='javascript:;' onClick='openMap({$id})' style='{$open|noescape}'></a>
+<a id="{$id}-close" href='javascript:;' onClick='closeMap({$id})' style='{$close|noescape}'></a>

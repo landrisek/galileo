@@ -1,12 +1,11 @@
-function closeMap() {
-    $('.seznam-map-close').css({display: 'none'})
-    $('.seznam-map-open').css({display: 'block'})
-    $('#mapa').data('resized', true).animate({height:'0px',width:'0%'}, 500)
+function closeMap(id) {
+    $('#' + id + '-close').css({display: 'none'})
+    $('#' + id + '-open').css({display: 'block'})
+    $('#' + id).data('resized', true).animate({height:'0px',width:'0%'}, 500)
 }
-function openMap() {
-    $('.seznam-map-open').css({display: 'none'})
-    $('.seznam-map-close').css({display: 'block'})
-    $('.toogle-list').removeClass('toogle-list-max', 500)
-    $('#mapa').css({display: 'block'})
-    $('#mapa').data('resized', true).animate({height:'400px',width:'100%'}, 500)
+function openMap(id) {
+    $('#' + id + '-open').css({display: 'none'})
+    $('#' + id + '-close').css({display: 'block'})
+    $('#' + id).css({display: 'block'})
+    $('#' + id).data('resized', true).animate({height:'400px',width:'100%'}, 500)
 }

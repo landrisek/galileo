@@ -13,6 +13,9 @@ final class SeznamMap extends Control implements ISeznamMapFactory {
     /** @var string */
     private $assets;
 
+    /** @var int */
+    private $id;
+
     /** @var bool */
     private $hide = false;
 
@@ -37,12 +40,16 @@ final class SeznamMap extends Control implements ISeznamMapFactory {
         }
     }
 
+    public function clone(): ISeznamMapFactory {
+        return clone $this;
+    }
+
     public function create(): SeznamMap {
         return $this;
     }
 
-    public function handleMarkers(): void {
-        $this->getPresenter()->sendResponse(new JsonResponse($this->seznam->markers()));
+    public function handleMarkers(string $id): void {
+        $this->getPresenter()->sendResponse(new JsonResponse($this->seznam->id($id)->markers()));
     }
 
     public function hide(bool $clause): ISeznamMapFactory {
@@ -51,15 +58,16 @@ final class SeznamMap extends Control implements ISeznamMapFactory {
     }
 
     public function render(...$args): void {
-        $this->seznam->setComponent($this->getName());
+        $this->seznam->id($id = $this->getName() . '-' . intval(reset($args)));
         $this->template->center = json_encode($this->seznam->center());
         $this->template->height = $this->seznam->height();
         $this->template->hide = $this->hide;
         $this->template->icon = $this->seznam->icon();
-        $this->template->id = 'mapa';
+        $this->template->id = $id;
         $this->template->js = $this->assets . 'js/seznammap.js';
-        $this->template->link = $this->link('markers');
+        $this->template->link = $this->link('markers', ['id' => $id]);
         $this->template->map = $this->seznam->map();
+        $this->template->markers = json_encode($this->seznam->markers());
         $this->template->render = self::$render;
         $this->template->styles = $this->seznam->cluster();
         $this->template->setFile(__DIR__ . '/../templates/seznamMap.latte');
@@ -67,9 +75,17 @@ final class SeznamMap extends Control implements ISeznamMapFactory {
         self::$render = false;
     }
 
-    public function renderShow(): void {
-        $this->template->close = $this->seznam->close();
-        $this->template->open = $this->seznam->open();
+    public function renderShow(...$args): void {
+        $this->seznam->id($id = $this->getName() . '-' . intval(reset($args)));
+        $this->template->close = '';
+        foreach($this->seznam->close($this->getName() . '-' . intval(reset($args))) as $key => $value) {
+            $this->template->close .= $key . ':' . $value . ';';
+        }
+        $this->template->id = $id;
+        $this->template->open = '';
+        foreach($this->seznam->open($this->getName() . '-' . intval(reset($args))) as $key => $value) {
+            $this->template->open .= $key . ':' . $value . ';';
+        }
         $this->template->setFile(__DIR__ . '/../templates/show.latte');
         $this->template->setTranslator($this->translatorRepository);
         $this->template->render();
