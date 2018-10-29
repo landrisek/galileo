@@ -6,7 +6,7 @@ use Galileo\ISvg,
     Nette\Application\LinkGenerator;
 
 /** @author Lubomir Andrisek */
-final class SvgService implements ISvg {
+final class SvgFacade implements ISvg {
 
     /** @var string */
     private $component;

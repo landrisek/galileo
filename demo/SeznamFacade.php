@@ -6,7 +6,7 @@ use Galileo\ISeznam,
     Nette\Application\LinkGenerator;
 
 /** @author Lubomir Andrisek */
-final class SeznamService implements ISeznam {
+final class SeznamFacade implements ISeznam {
 
     /** @var array */
     private $center = ['latitude' => 50.08, 'longitude' => 14.41, 'zoom' => 10];
