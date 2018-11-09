@@ -60,11 +60,13 @@ final class SeznamMap extends Control implements ISeznamMapFactory {
     public function render(...$args): void {
         $this->seznam->id($id = $this->getName() . '-' . intval(reset($args)));
         $this->template->center = json_encode($this->seznam->center());
+        $this->template->data = json_encode([]);
         $this->template->height = $this->seznam->height();
         $this->template->hide = $this->hide;
         $this->template->icon = $this->seznam->icon();
         $this->template->id = $id;
-        $this->template->js = $this->assets . 'js/seznammap.js';
+        $this->template->images = $this->assets . 'images/';
+        $this->template->js = $this->assets . 'js/' . strtolower($this->getName()) . '.js';
         $this->template->link = $this->link('markers', ['id' => $id]);
         $this->template->map = $this->seznam->map();
         $this->template->markers = json_encode($this->seznam->markers());

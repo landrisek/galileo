@@ -41,7 +41,7 @@ final class SvgMap extends Control implements ISvgMapFactory {
         $this->template->render = self::$render;
         $this->template->styles = $this->svg->marker();
         $this->template->width = $this->svg->width();
-        $this->template->setFile(__DIR__ . '/../templates/svgmap.latte');
+        $this->template->setFile(__DIR__ . '/../templates/svgMap.latte');
         $this->template->render();
         self::$render = false;
     }
