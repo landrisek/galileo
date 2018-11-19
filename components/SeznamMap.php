@@ -8,6 +8,7 @@ use Nette\Application\Responses\JsonResponse,
     Nette\Http\IRequest,
     Nette\Localization\ITranslator;
 
+/** @author Lubomir Andrisek */
 final class SeznamMap extends Control implements ISeznamMapFactory {
 
     /** @var string */
@@ -71,7 +72,7 @@ final class SeznamMap extends Control implements ISeznamMapFactory {
         $this->template->map = $this->seznam->map();
         $this->template->markers = json_encode($this->seznam->markers());
         $this->template->render = self::$render;
-        $this->template->styles = $this->seznam->cluster();
+        $this->template->styles = $this->seznam->style();
         $this->template->setFile(__DIR__ . '/../templates/seznamMap.latte');
         $this->template->render();
         self::$render = false;

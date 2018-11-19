@@ -9,8 +9,6 @@ interface ISeznam {
 
     public function close(): array;
 
-    public function cluster(): array;
-
     public function height(): int;
 
     public function icon(): string;
@@ -23,4 +21,5 @@ interface ISeznam {
 
     public function open(): array;
 
+    public function style(): array;
 }

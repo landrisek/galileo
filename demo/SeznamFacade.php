@@ -32,7 +32,7 @@ final class SeznamFacade implements ISeznam {
                 'color' => 'rgb(0, 0, 0)',
                 'cursor' => 'pointer',
                 'display' => 'none',
-                'font-family' => 'Arial, sans-serif;',
+                'font-family' => 'Arial, sans-serif',
                 'font-weight' => 'bold',
                 'font-size' => '13px',
                 'margin' => '5px',
@@ -41,16 +41,15 @@ final class SeznamFacade implements ISeznam {
                 'text-decoration' => 'none'];
     }
 
-    public function cluster(): array {
-        return ['background' => 'url("../assets/images/myCluster.png") 0px 0px no-repeat',
+    public function style(): array {
+        return ['.smap .cluster div' => ['background' => 'url("../assets/images/myCluster.png") 0px 0px no-repeat',
                 'border' => 'none',
                 'border-radius' => '0%',
                 'color' => '#1b8a26',
                 'display' => 'block',
                 'height' => '19px',
                 'overflow' => 'hidden',
-                'height' => '30px',
-                'width' => '110px'];
+                'width' => '110px']];
     }
 
     public function height(): int {

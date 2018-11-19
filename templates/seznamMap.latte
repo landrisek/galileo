@@ -1,12 +1,12 @@
 <link href='https://api.mapy.cz/css/api/v4/smap-jak.css?v4.13.32' media='all' n:if="$render" rel='stylesheet' />
-<style n:if="$render">.smap .cluster div {
-    {foreach $styles as $key => $value}
-        {$key|noescape}:{$value|noescape};
-    {/foreach}
-}
-.smap .cluster img {
-    display: none;
-}
+<style n:if="$render">
+    {foreach $styles as $class => $values}
+        {$class|noescape} {
+            {foreach $values as $key => $value}
+                {$key|noescape}:{$value|noescape};
+            {/foreach}
+        }
+     {/foreach}
 </style>
 <div data-center="{$center}" 
      data-link="{$link}"
