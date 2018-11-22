@@ -8,23 +8,18 @@ use Exception,
 
 final class GalileoExtension extends CompilerExtension {
 
+    /** @var array */
     private $defaults = ['assets' => '/assets/galileo/'];
 
-    public function getConfiguration(array $parameters) {
-        foreach($this->defaults as $key => $parameter) {
-            if(!isset($parameters['galileo'][$key])) {
-                $parameters['galileo'][$key] = $parameter;
-            }
-        }
-        return $parameters;
-    }
-    
-    public function loadConfiguration() {
-        $builder = $this->getContainerBuilder();
-        $parameters = $this->getConfiguration($builder->parameters);
-        $builder->addDefinition($this->prefix('seznamMap'))->setFactory('Galileo\SeznamMap', [$parameters['galileo']['assets']]);
-        $builder->addDefinition($this->prefix('svgMap'))->setFactory('Galileo\SvgMap', [$parameters['galileo']['assets']]);
-        $builder->addDefinition($this->prefix('galileoExtension'))->setFactory('Galileo\GalileoExtension', []);
+    /** @var array */
+    private $parameters;
+
+    public function afterCompile(ClassType $class) {
+        $initialize = $class->methods['initialize'];
+        $initialize->addBody('Nette\Forms\Container::extensionMethod("\Nette\Forms\Container::addSeznamMap", '
+                           . 'function (\Nette\Forms\Container $_this, string $name, string $label) { '
+                           . 'return $_this[$name] = new Galileo\AddMap("' . $this->parameters['galileo']['assets'] . '", $name, $label, $this->getByType(?)); });', 
+                            ['Nette\Http\IRequest']);
     }
 
     public function beforeCompile() {
@@ -34,7 +29,21 @@ final class GalileoExtension extends CompilerExtension {
         parent::beforeCompile();
     }
 
-    public function afterCompile(ClassType $class) {
+    public function getConfiguration(array $parameters) {
+        foreach($this->defaults as $key => $parameter) {
+            if(!isset($parameters['galileo'][$key])) {
+                $parameters['galileo'][$key] = $parameter;
+            }
+        }
+        return $parameters;
+    }
+
+    public function loadConfiguration() {
+        $builder = $this->getContainerBuilder();
+        $this->parameters = $this->getConfiguration($builder->parameters);
+        $builder->addDefinition($this->prefix('seznamMap'))->setFactory('Galileo\SeznamMap', [$this->parameters['galileo']['assets']]);
+        $builder->addDefinition($this->prefix('svgMap'))->setFactory('Galileo\SvgMap', [$this->parameters['galileo']['assets']]);
+        $builder->addDefinition($this->prefix('galileoExtension'))->setFactory('Galileo\GalileoExtension', []);
     }
 
 }

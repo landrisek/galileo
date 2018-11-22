@@ -7,7 +7,7 @@ interface ISeznam {
 
     public function center(): array;
 
-    public function close(): array;
+    public function close(string $component): array;
 
     public function height(): int;
 
@@ -19,7 +19,7 @@ interface ISeznam {
 
     public function map(): string;
 
-    public function open(): array;
+    public function open(string $component): array;
 
     public function style(): array;
 }

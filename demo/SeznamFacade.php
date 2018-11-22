@@ -25,7 +25,7 @@ final class SeznamFacade implements ISeznam {
         return $this->center;
     }
 
-    public function close(): array {
+    public function close(string $component): array {
         return ['background-color' => 'rgb(255, 255, 255)',
                 'border' => '1px solid rgb(113, 123, 135)',
                 'box-shadow' => 'rgba(0, 0, 0, 0.4) 0px 2px 4px',
@@ -39,17 +39,6 @@ final class SeznamFacade implements ISeznam {
                 'padding' => '2px 8px',
                 'text-align' => 'center',
                 'text-decoration' => 'none'];
-    }
-
-    public function style(): array {
-        return ['.smap .cluster div' => ['background' => 'url("../assets/images/myCluster.png") 0px 0px no-repeat',
-                'border' => 'none',
-                'border-radius' => '0%',
-                'color' => '#1b8a26',
-                'display' => 'block',
-                'height' => '19px',
-                'overflow' => 'hidden',
-                'width' => '110px']];
     }
 
     public function height(): int {
@@ -81,7 +70,7 @@ final class SeznamFacade implements ISeznam {
         return $markers;
     }
 
-    public function open(): array {
+    public function open(string $component): array {
         return ['background' => 'url("../assets/images/map.png") 0 0 no-repeat',
                 'display' => 'block',
                 'height' => '103px',
@@ -90,6 +79,17 @@ final class SeznamFacade implements ISeznam {
                 'width' => '102px',
                 'top' => '0px',
                 'z-index' => '4'];
+    }
+
+    public function style(): array {
+        return ['.smap .cluster div' => ['background' => 'url("../assets/images/myCluster.png") 0px 0px no-repeat',
+                'border' => 'none',
+                'border-radius' => '0%',
+                'color' => '#1b8a26',
+                'display' => 'block',
+                'height' => '19px',
+                'overflow' => 'hidden',
+                'width' => '110px']];
     }
 
 }
